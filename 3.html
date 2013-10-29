@@ -58,7 +58,8 @@
 
     <div id="buttons">
         <button id="add">add</button>
-        <button id="remove">remove</button>
+        <button id="remove_last">remove last</button>
+        <button id="remove_random">remove ranodm</button>
     </div>
 
     <script type="text/javascript">
@@ -70,8 +71,13 @@
                 subdiv.distribute_divs();
             });
 
-            $('#remove').on('click', function(){
+            $('#remove_last').on('click', function(){
                 $('#container div:last-child').remove();
+                subdiv.distribute_divs();
+            });
+
+            $('#remove_random').on('click', function(){
+                $('#container div').eq(Math.floor(Math.random() * subdiv.divs().length)).remove();
                 subdiv.distribute_divs();
             });
         });
