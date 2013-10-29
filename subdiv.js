@@ -7,8 +7,12 @@
             height: 0,
 
             update_dimensions: function(){
+                $container.css('height', 0);
+
                 this.width = $(window).width();
                 this.height = $(window).height();
+
+                $container.css('height', 'auto');
             },
 
             divs: function(){
