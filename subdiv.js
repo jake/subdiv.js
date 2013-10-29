@@ -24,6 +24,8 @@
             },
 
             determine_cells: function(n){
+                if (! n || isNaN(n)) return [];
+
                 // 3 is the only one that seems wrong...
                 if (n == 3) return [[1,1],[1]];
 
