@@ -42,8 +42,8 @@
     <script type="text/javascript">
         $(function(exports){
             var subdiv = {
-                width: 1000,
-                height: 1000,
+                width: 0,
+                height: 0,
 
                 update_dimensions: function(){
                     this.width = $(window).width();
@@ -106,9 +106,14 @@
                 },
 
                 init: function(){
-                    // this.update_dimensions();
+                    this.resize();
 
-                    this.distribute_divs()
+                    $(window).on('resize', this.resize);
+                },
+
+                resize: function(){
+                    subdiv.update_dimensions();
+                    subdiv.distribute_divs();
                 },
             };
 
