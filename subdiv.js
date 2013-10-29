@@ -10,15 +10,6 @@
             width: 0,
             height: 0,
 
-            update_dimensions: function(){
-                opts.container.css('height', 0);
-
-                this.width = opts.viewport.width();
-                this.height = opts.viewport.height();
-
-                opts.container.css('height', 'auto');
-            },
-
             divs: function(){
                 return opts.container.find(opts.selector);
             },
@@ -75,6 +66,15 @@
                         });
                     }
                 };
+            },
+
+            update_dimensions: function(){
+                opts.container.css('height', 0);
+
+                this.width = opts.viewport.width();
+                this.height = opts.viewport.height();
+
+                opts.container.css('height', 'auto');
             },
 
             resize: function(){
