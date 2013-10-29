@@ -1,6 +1,7 @@
 (function($){
-    $.fn.subdiv = function(){
+    $.fn.subdiv = function(options){
         var $container = $(this);
+        var opts = $.extend({}, $.fn.subdiv.defaults, options);
 
         var subdiv = {
             width: 0,
@@ -9,14 +10,14 @@
             update_dimensions: function(){
                 $container.css('height', 0);
 
-                this.width = $(window).width();
-                this.height = $(window).height();
+                this.width = $(opts.viewport).width();
+                this.height = $(opts.viewport).height();
 
                 $container.css('height', 'auto');
             },
 
             divs: function(){
-                return $container.find('div');
+                return $container.find(opts.selector);
             },
 
             determine_cells: function(n){
@@ -29,7 +30,7 @@
 
                 var check = (columns * rows) + remainder;
                 if (check !== n) {
-                    throw new Error('distribute failure: ' + columns + ', ' + rows + ', ' + remainder + ', ' + check);
+                    throw new Error('determine_cells: ' + columns + ', ' + rows + ', ' + remainder + ', ' + check);
                 }
 
                 var cells = [];
@@ -78,12 +79,17 @@
 
             init: function(){
                 this.resize();
-                $(window).on('resize', this.resize);
+                $(opts.viewport).on('resize', this.resize);
             },
         };
 
         subdiv.init();
 
         return subdiv;
+    };
+
+    $.fn.subdiv.defaults = {
+        viewport: window,
+        selector: 'div',
     };
 }(jQuery));
