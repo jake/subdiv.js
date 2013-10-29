@@ -5,42 +5,73 @@
         body {
             margin: 0;
             padding: 0;
+            background: #000;
         }
 
         #container {
             position: relative;
         }
 
-        div {
+            #container div {
+                display: table;
+                background: #fff;
+            }
+
+                #container span {
+                    display: table-cell;
+                    text-align: center;
+                    vertical-align: middle;
+                    font: bold 50px 'Helvetica Neue', Helvetica, sans-serif;
+                    color: #cacaca;
+                    outline: 1px solid #f0f0f0;
+                }
+
+        #buttons {
             position: absolute;
-            outline: 1px solid rgba(0,0,0, 0.1);
+            top: 10px;
+            right: 10px;
         }
     </style>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 </head>
 <body>
     <div id="container">
-        <div>1</div>
-        <div>2</div>
-        <div>3</div>
-        <div>4</div>
-        <div>5</div>
-        <div>6</div>
-        <div>7</div>
-        <div>8</div>
-        <div>9</div>
-        <div>10</div>
-        <div>11</div>
-        <div>12</div>
-        <div>13</div>
-        <div>14</div>
-        <div>15</div>
-        <div>16</div>
-        <div>17</div>
+        <div><span>1</span></div>
+        <div><span>2</span></div>
+        <div><span>3</span></div>
+        <div><span>4</span></div>
+        <div><span>5</span></div>
+        <div><span>6</span></div>
+        <div><span>7</span></div>
+        <div><span>8</span></div>
+        <div><span>9</span></div>
+        <div><span>10</span></div>
+        <div><span>11</span></div>
+        <div><span>12</span></div>
+        <div><span>13</span></div>
+        <div><span>14</span></div>
+        <div><span>15</span></div>
+        <div><span>16</span></div>
+        <div><span>17</span></div>
+    </div>
+
+    <div id="buttons">
+        <button id="add">add</button>
+        <button id="remove">remove</button>
     </div>
 
     <script type="text/javascript">
         $(function(exports){
+            $('#add').on('click', function(){
+                $('#container').append($('<div/>').text(subdiv.divs().length + 1));
+                subdiv.distribute_divs();
+            });
+
+            $('#remove').on('click', function(){
+                $('#container div:last-child').remove();
+                subdiv.distribute_divs();
+            });
+
             var subdiv = {
                 width: 0,
                 height: 0,
@@ -96,6 +127,7 @@
 
                         for (var j=0; j < cells[i].length; j++){
                             $(divs.get(index++)).css({
+                                'position': 'absolute',
                                 'top': height * i,
                                 'left': width * j,
                                 'width': width,
