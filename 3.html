@@ -75,17 +75,17 @@
 
             $('#add').on('click', function(){
                 $('#container').append($('<div/>').append($('<span/>').text(subdiv.divs().length + 1)));
-                subdiv.distribute_divs();
+                subdiv.resize();
             });
 
             $('#remove_last').on('click', function(){
                 $('#container div:last-child').remove();
-                subdiv.distribute_divs();
+                subdiv.resize();
             });
 
             $('#remove_random').on('click', function(){
                 $('#container div').eq(Math.floor(Math.random() * subdiv.divs().length)).remove();
-                subdiv.distribute_divs();
+                subdiv.resize();
             });
         });
     </script>
