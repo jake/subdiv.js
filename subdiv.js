@@ -39,9 +39,10 @@
                     }
                 }
 
-                // distribute remainder starting at top
+                // distribute remainder from middle
+                var start = Math.ceil(rows / 2) - Math.ceil(remainder / 2); 
                 for (var i = 0; i < remainder; i++) {
-                    cells[i].push(1);
+                    cells[start + i].push(1);
                 }
 
                 return cells;
