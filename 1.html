@@ -1,0 +1,98 @@
+<html>
+<head>
+    <title>subdiv.js 1</title>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            outline: 1px solid rgba(0,0,0, 0.5);
+        }
+    </style>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+</head>
+<body>
+    <div id="container">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+    </div>
+
+    <pre></pre>
+
+    <script type="text/javascript">
+        $(function(exports){
+            var subdiv = {
+                width: 0,
+                height: 0,
+
+                get_dimensions: function(){
+                    this.width = $(window).width();
+                    this.height = $(window).height();
+                },
+
+                divs: function(){
+                    var divs = $('#container div');
+
+                    var length = divs.length;
+                    console.log(length % 2);
+                },
+
+                distribute: function(n){
+                    var columns = Math.floor(Math.sqrt(n));
+                    var rows = Math.floor(n / columns);
+                    var remainder = n % rows;
+
+                    var check = (columns * rows) + remainder;
+                    if (check !== n) {
+                        throw new Error('distribute failure: ' + columns + ', ' + rows + ', ' + remainder + ', ' + check);
+                    }
+
+                    var cells = [];
+
+                    for (var i=0; i < columns; i++) {
+                        cells[i] = [];
+                        for (var j=0; j < rows; j++) {
+                            cells[i][j] = 1;
+                        }
+                    }
+
+                    // for (var i = remainder; i > 0; i--) { // add to bottom
+                    for (var i = 0; i < remainder; i++) { // add to top
+                        cells[i].push(1);
+                    };
+
+                    // console.log(n, columns, rows, remainder, JSON.stringify(cells));
+
+                    return cells;
+                },
+
+                demo: function(n, cells){
+                    var text = n + ":\n";
+
+                    $.each(cells, function(){
+                        $(this).each(function(){
+                            text += 'x';
+                        });
+                        text += "\n";
+                    })
+
+                    $('pre').append(text + "\n\n");
+                },
+
+                init: function(){
+                    // this.get_dimensions();
+
+                    for (var i=1; i<30; i++) this.demo(i, this.distribute(i));
+                },
+            };
+
+            subdiv.init();
+
+            exports.subdiv = subdiv;
+        }(window));
+    </script>
+</body>
+</html>
