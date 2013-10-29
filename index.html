@@ -1,0 +1,91 @@
+<html>
+<head>
+    <title>subdiv.js demo</title>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+        }
+
+        #viewport {
+            margin: 0 auto;
+            width: 500px;
+            height: 500px;
+            background: teal;
+        }
+
+        #container {}
+
+            #container div {
+                display: table;
+                background: #fff;
+            }
+
+                #container span {
+                    display: table-cell;
+                    text-align: center;
+                    vertical-align: middle;
+                    font: bold 50px 'Helvetica Neue', Helvetica, sans-serif;
+                    color: #cacaca;
+                    outline: 1px solid #f0f0f0;
+                }
+
+        #buttons {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript" src="subdiv.js"></script>
+</head>
+<body>
+    <div id="container">
+        <div><span>1</span></div>
+        <div><span>2</span></div>
+        <div><span>3</span></div>
+        <div><span>4</span></div>
+        <div><span>5</span></div>
+        <div><span>6</span></div>
+        <div><span>7</span></div>
+        <div><span>8</span></div>
+        <div><span>9</span></div>
+        <div><span>10</span></div>
+        <div><span>11</span></div>
+        <div><span>12</span></div>
+        <div><span>13</span></div>
+        <div><span>14</span></div>
+        <div><span>15</span></div>
+        <div><span>16</span></div>
+        <div><span>17</span></div>
+    </div>
+
+    <div id="buttons">
+        <button id="add">add</button>
+        <button id="remove_last">remove last</button>
+        <button id="remove_random">remove random</button>
+    </div>
+
+    <script type="text/javascript">
+        $(function(){
+            var subdiv = $('#container').subdiv();
+
+            $('#add').on('click', function(){
+                $('#container').append($('<div/>').append($('<span/>').text(subdiv.divs().length + 1)));
+                subdiv.resize();
+            });
+
+            $('#remove_last').on('click', function(){
+                $('#container div:last-child').remove();
+                subdiv.resize();
+            });
+
+            $('#remove_random').on('click', function(){
+                $('#container div').eq(Math.floor(Math.random() * subdiv.divs().length)).remove();
+                subdiv.resize();
+            });
+        });
+    </script>
+</body>
+</html>
