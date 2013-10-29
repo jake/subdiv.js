@@ -1,23 +1,26 @@
 (function($){
     $.fn.subdiv = function(options){
-        var $container = $(this);
         var opts = $.extend({}, $.fn.subdiv.defaults, options);
+
+        if (! opts.container) opts.container = this;
+        opts.container = $(opts.container);
+        opts.viewport = $(opts.viewport);
 
         var subdiv = {
             width: 0,
             height: 0,
 
             update_dimensions: function(){
-                $container.css('height', 0);
+                opts.container.css('height', 0);
 
-                this.width = $(opts.viewport).width();
-                this.height = $(opts.viewport).height();
+                this.width = opts.viewport.width();
+                this.height = opts.viewport.height();
 
-                $container.css('height', 'auto');
+                opts.container.css('height', 'auto');
             },
 
             divs: function(){
-                return $container.find(opts.selector);
+                return opts.container.find(opts.selector);
             },
 
             determine_cells: function(n){
@@ -78,8 +81,9 @@
             },
 
             init: function(){
+                opts.container.css('position', 'relative');
                 this.resize();
-                $(opts.viewport).on('resize', this.resize);
+                opts.viewport.on('resize', this.resize);
             },
         };
 
@@ -89,6 +93,7 @@
     };
 
     $.fn.subdiv.defaults = {
+        container: false,
         viewport: window,
         selector: 'div',
     };
